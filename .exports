@@ -1,0 +1,61 @@
+# Make vim the default editor
+export EDITOR="vim"
+
+# Larger bash history (allow 32³ entries; default is 500)
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoreboth
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+# Make some commands not show up in history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+
+# Prefer US English and use UTF-8
+export LANG="de_DE.UTF-8"
+export LANGUAGE="de_DE:de:en_US:en"
+export LC_CTYPE="de_DE.UTF-8"
+export LC_NUMERIC="de_DE.UTF-8"
+export LC_TIME="de_DE.UTF-8"
+export LC_COLLATE="de_DE.UTF-8"
+export LC_MONETARY="de_DE.UTF-8"
+export LC_MESSAGES="POSIX"
+export LC_PAPER="de_DE.UTF-8"
+export LC_NAME="de_DE.UTF-8"
+export LC_ADDRESS="de_DE.UTF-8"
+export LC_TELEPHONE="de_DE.UTF-8"
+export LC_MEASUREMENT="de_DE.UTF-8"
+export LC_IDENTIFICATION="de_DE.UTF-8"
+export LC_ALL=
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$ORANGE"
+
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+export PAGER="less"
+
+# Always enable colored `grep` output
+#export GREP_OPTIONS="--color=auto"
+
+# Add '~/bin' to the '$PATH'
+if [ -d "$HOME/bin" ]; then
+   PATH="$HOME/bin:$PATH"
+fi
+
+# Add GOPATH
+if [ -d "$HOME/go" ]; then
+  export GOPATH="$HOME/go"
+  PATH="$GOPATH/bin:$PATH"
+fi
+
+# Add Go bin
+if [ -d "$GOPATH/bin" ]; then
+  PATH="$PATH:$GOPATH/bin"
+fi
+
+# Add plenv to PATH
+if [ -d "$HOME/.plenv" ]; then
+  PATH="$HOME/.plenv/bin:$PATH"
+  eval "$(plenv init -)"
+fi
+
+export PATH

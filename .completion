@@ -1,0 +1,44 @@
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+
+# macOS completion
+if [ "x`uname`" == "xDarwin" ]; then
+   # Add tab completion for `defaults read|write NSGlobalDomain`
+   # You could just use `-g` instead, but I like being explicit
+   complete -W "NSGlobalDomain" defaults
+   
+   # Add `killall` tab completion for common apps
+   complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
+fi
+
+# Autocomplete Grunt commands
+which grunt > /dev/null && eval "$(grunt --completion=bash)"
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# git command autocompletion
+if [ -e .git-completion.bash ]; then
+	source .git-completion.bash
+fi
+
+# gopass autocompletion
+if $(which gopass > /dev/null); then
+    source <(gopass completion bash)
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f ~/apps/google-cloud-sdk/completion.bash.inc ]; then
+    source ~/apps/google-cloud-sdk/completion.bash.inc;
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f ~/apps/google-cloud-sdk/path.bash.inc ]; then
+    source ~/apps/google-cloud-sdk/path.bash.inc;
+fi
+
+# vim: set ft=sh
